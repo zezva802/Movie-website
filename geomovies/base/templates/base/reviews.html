@@ -1,0 +1,59 @@
+{% load static %}
+<h2 class="review-header">მიმოხილვა</h2>
+<hr>
+{% if request.user.is_authenticated %}
+    <h2>{% if user_review %}დაარედაქტირე{% else %}განათავსე{% endif %} კომენტარი</h2>
+    <form id="add-review-form" method="post" action="{% url 'add-review' movie.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="movie_id" value="{{ movie.id }}">
+        <button type="submit">{% if user_review %}რედაქტირებულია{% else %}მზადაა{% endif %}</button>
+    </form>
+{% endif %}
+
+<div class="review-container">
+    <hr>
+    {% for review in reviews %}
+        <div class="single-review">
+            <div class="user-info">
+                <a class="image-wrapper" href="{% url 'profile-page' review.user.profile.id %}">
+                    <img src="{{ review.user.profile.profile_picture.url }}" alt="profile picture">
+                </a>
+                <div class="post-info">
+                    <p class="author">{{ review.user }}</p>
+                    {% if request.user.is_authenticated and review.user == request.user %}
+
+                        <a class="delete-review-button" href="{% url 'delete-review' review.id %}" data-id="{{ review.id }}">Delete</a>
+                    {% endif %}
+                    <p class="date-written">{{ review.created_at|timesince }}</p>
+                    <p class="gave-score">{{ review.rating }}/10</p>
+                </div>
+            </div>
+            <p class="review-text">{{ review.review_text }}</p>
+        </div>
+        <hr>
+    {% endfor %}
+</div>
+
+
+
+
+
+<!--{% for review in reviews %}-->
+<!--    {% if review.user.profile.profile_picture %}-->
+<!--        <img src="{{ review.user.profile.profile_picture.url }}">-->
+<!--    {% endif %}-->
+<!--    <p>{{ review.user }}</p>-->
+<!--    {% if request.user.is_authenticated and review.user == request.user %}-->
+<!--        <form id="delete-review-{{ review.id }}" method="post" action="{% url 'delete-review' review.id %}" style="display:none;">-->
+<!--            {% csrf_token %}-->
+<!--        </form>-->
+<!--        <a href="#" onclick="event.preventDefault(); document.getElementById('delete-review-{{ review.id }}').submit();">Delete</a>-->
+<!--    {% endif %}-->
+<!--    <p>{{ review.created_at | timesince }}</p>-->
+<!--    <p>{{ review.rating }}/10</p>-->
+<!--    <p>{{ review.review_text }}</p>-->
+<!--    <hr>-->
+<!--{% endfor %}-->
+
+

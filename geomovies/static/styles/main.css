@@ -1,0 +1,466 @@
+body{
+    background-color: #19161c;
+
+}
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top:10px;
+
+
+}
+
+.box input {
+    padding: 10px;
+    width: 400px;
+    height: 50px;
+    background: none;
+    border: 2px solid #979797;
+    border-radius: 7px;
+    box-sizing: border-box;
+
+
+    font-size: 26px;
+    color: #979797;
+    outline: none;
+
+}
+.logo img{
+    width: 60px;
+    height: auto;
+    margin-left:10px;
+}
+.user-img{
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border-style: solid;
+    border-color: #979797;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    margin-right:10px;
+}
+.user-img img{
+    height: 60px;
+    width: auto;
+    margin: auto;
+}
+
+
+
+
+
+
+
+
+.navigation{
+    position: relative;
+    height: 100vh;
+
+    overflow: hidden;
+}
+
+.image-track{
+    display: flex;
+    gap: 4vmin;
+    position: absolute;
+    left : 50%;
+    top:50%;
+    transform: translate(0%, -50%);
+    user-select: none;
+
+}
+.image-track >.container{
+    position: relative;
+    text-align: center;
+}
+.image-track > .container > img{
+
+    width: 40vmin;
+    height: 56vmin;
+    object-fit: cover;
+    object-position: 100% center;
+}
+.image-track > .container > .navigation-text{
+    position: absolute;
+    text-decoration: none;
+    top: 50%;
+    left: 50%;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    color: rgb(255, 255, 255);
+    font-size: 40px;
+
+
+    transform: translate(-50%, -50%);
+
+
+
+}
+
+
+
+body {
+    font-family: Arial, sans-serif;
+
+    margin: 0;
+    padding: 0;
+}
+
+.genre-label {
+    font-size: 25px;
+    cursor: pointer;
+    color: white;
+    margin-left:10px;
+    user-select:none;
+}
+
+
+.genre-label.checked {
+    color: #979797;
+}
+.genre-filter-form{
+    margin-top: 10px;
+}
+.filter{
+    width:170px;
+    background-color: #979797;
+    border-style: none;
+    font-size: 20px;
+    margin:10px;
+}
+
+
+
+
+
+
+
+
+
+.center-video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+iframe {
+    width: 80%; /* Adjust width as needed */
+    height: 80vh; /* Adjust height as needed */
+    margin-bottom: 100px;
+}
+
+.poster{
+    position: relative;
+    width: 100%;
+    height: 400px;
+    border-style: solid;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow */
+}
+.poster > img{
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Adjust the alpha value (last parameter) to change darkness */
+}
+.info-wrapper{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    height: 80%;
+    width: 67%;
+}
+.info{
+
+    color: white;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.info > p{
+
+    margin: 0px;
+
+}
+.info-wrapper > img{
+    margin-right: 15px;
+}
+.movie-desc-info{
+    color: orange;
+}
+
+
+
+
+
+.user-info{
+    display: flex;
+    flex-direction: row;
+}
+.image-wrapper{
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+}
+.image-wrapper > img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.post-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 10px;
+}
+.post-info > .author{
+    font-size: 20px;
+    margin: 0px;
+}
+.post-info > .gave-score{
+    margin: 0px;
+
+}
+.post-info > .date-written{
+    margin: 0px;
+}
+.review-container{
+    position: relative;
+    color: white;
+    margin: 20px;
+}
+.review-header{
+    margin-left: 20px;
+    color:white;
+}
+.delete-review-button{
+    padding: 5px;
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    background-color: rgb(173, 37, 37);
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
+}
+
+.add-to-favorites-wrapper{
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    background-color: rgb(255, 255, 255);
+}
+.add-to-favorites{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+}
+.add-to-watchlist-wrapper{
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    width: 30px;
+    height: 30px;
+    background-color: rgb(255, 255, 255);
+}
+.add-to-watchlist{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+}
+.profile-page-container{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    background-image: url('https://ideogram.ai/assets/image/lossless/response/vW3u3oQrRqSjTzkB5DVzlw');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height:100vh;
+
+}
+
+.profile-page-sidebar-container{
+
+    background-color: #19161c;
+    height: 100%;
+    padding-left: 10px;
+    color: white;
+
+
+}
+
+.profile-page-profile-img-wrapper{
+    height: 100px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+.profile-page-profile-info-wrapper{
+    position: relative;
+    display: flex;
+    align-items: center;
+    word-wrap: break-word;
+
+
+
+}
+.profile-page-username{
+    max-width: 100%;
+    font-size: 20px;
+    align-self:center;
+    margin-left: 5px;
+}
+.profile-page-profile-img{
+    height: 100%;
+    width: 100%;
+    min-width: 100px;
+    object-fit: cover;
+}
+
+
+
+.profile-page-navigation-list{
+    font-size: 25px;
+    list-style-type:none ;
+
+    padding: 0px;
+}
+.profile-page-navigation-list>li{
+    margin-bottom: 30px;
+
+}
+
+.profile-page-list-container{
+    position: relative;
+    min-height: 100vh;
+
+}
+.profile-page-overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background for darkening effect */
+    z-index: 1;
+}
+.profile-page-movie-wrapper{
+    z-index: 2;
+    border-style: solid;
+    background-color: #19161c;
+
+    width: 250px;
+
+    justify-content: center;
+    text-align: center;
+}
+.profile-page-content {
+    position: relative;
+    z-index: 2; /* Place content above the overlay */
+    padding: 40px; /* Add some padding to prevent content from touching the edges */
+}
+.profile-page-movie-image-wrapper{
+    height: 435px;
+    width: 100%;
+}
+.profile-page-movie-image-wrapper > img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.profile-page-movie-list{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap:30px;
+    grid-row-gap: 25px;
+}
+.profile-page-movie-title{
+    color: white;
+    font-size: 25px;
+    margin: 10px;
+
+}
+
+.truncated-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 249px; /* Adjust as needed */
+}
+.profile-page-logout{
+    position: absolute;
+
+    right: 5px;
+    width: 50px;
+    height: 50px;
+
+
+}
+.profile-page-logout > a >img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.profile-page-review{
+    font-size: 15px;
+    position: relative;
+    background-color: #19161c;
+    color: white;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    padding: 10px;
+
+}
+.profile-page-reviews-container{
+    position: relative;
+    z-index: 2;
+}
+.profile-page-delete-review-button{
+    padding: 2px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgb(173, 37, 37);
+    font-size: 15px;
+    text-decoration: none;
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+

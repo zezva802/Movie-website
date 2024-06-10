@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <form method="GET" action="{% url 'home' %}" class="genre-filter-form" id="genre-filter-form">
+        <div>
+            {% for genre in genres %}
+        <input type="checkbox" id="{{genre.name}}" name="genres" value="{{genre.name}}" hidden>
+        <label for="{{genre.name}}" class="genre-label">{{genre.name}}</label>
+            {% endfor %}
+        </div>
+
+        <input class="filter" type="submit" value="გაფილტვრა">
+    </form>
+
+    <section class="navigation">
+        <div class="image-track" id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
+            {% for movie in movies %}
+                <div class="container" data-url="{% url 'movie-page' movie.id %}">
+
+                    <img  class="image" src="{{movie.image}}" alt="{{movie.title}}" draggable="false">
+                    <a class="navigation-text" href="{% url 'movie-page' movie.id %}" draggable="false">{{movie.title}}</a>
+
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'scripts/script.js' %}"></script>
+{% endblock %}

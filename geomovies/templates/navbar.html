@@ -1,0 +1,30 @@
+
+
+<div class="navbar">
+
+    <a href="{% url 'home' %}" class="logo">
+        <img src="https://cdn-icons-png.flaticon.com/128/745/745752.png" alt="logo">
+    </a>
+        {% if not request.path == '/profile/' %}
+        <form method="GET" action="{% url 'home' %}">
+            <div class="box">
+            <input type="text" name="q" placeholder="ძიება">
+            </div>
+        </form>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+
+        <div class="user-img">
+            <a href="{%url 'profile-page' request.user.profile.id%}">
+            <img src="{{request.user.profile.profile_picture.url}}" alt="userLogo">
+            </a>
+        </div>
+
+        {% else %}
+
+            <a href="{% url 'login' %}">Login</a>
+
+        {% endif %}
+
+</div>
+

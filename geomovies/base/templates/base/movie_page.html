@@ -1,0 +1,144 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+    <div class="center-video">
+        <iframe width="80%" height="600" src="{{ movie.link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div class="poster">
+        <img src="{{ movie.image }}" alt="{{ movie.title }}">
+        <div class="image-overlay"></div>
+        <div class="info-wrapper">
+            <img src="{{ movie.image_small }}" alt="{{ movie.title }}">
+            <div class="info">
+                <p>{{ movie.title }}</p>
+                <p><span class="movie-desc-info">ჟანრი:</span> {% for genre in movie.genre.all %}{{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                <p><span class="movie-desc-info">გამოშვების წელი:</span> {{ movie.release_date }}</p>
+                <p><span class="movie-desc-info">ხანგრძლივობა:</span> {{ movie.duration }}წთ</p>
+                <p><span class="movie-desc-info">რეჟისორი:</span> {{ movie.director }}</p>
+                <p><span class="movie-desc-info">სიუჟეტი:</span> {{ movie.description }}</p>
+            </div>
+        </div>
+        {% if request.user.is_authenticated %}
+        <div class="add-to-favorites-wrapper">
+            <a id="add-to-favorites"  href="{% url 'toggle-favorite' movie.id %}">
+                {% if movie.is_favorite %}
+                    <img id="favorite-icon" class="add-to-favorites" src="https://cdn-icons-png.flaticon.com/512/2550/2550357.png" alt="favorites-icon">
+                {% else %}
+                    <img id="favorite-icon" class="add-to-favorites" src="https://cdn-icons-png.flaticon.com/512/2550/2550223.png" alt="favorites-icon">
+                {% endif %}
+            </a>
+
+        </div>
+        <div class="add-to-watchlist-wrapper">
+        <a id="add-to-watchlist" href="{% url 'toggle-watchlist' movie.id %}">
+            {% if movie.in_watchlist %}
+            <img id=watchlist-icon" src="https://cdn-icons-png.flaticon.com/512/2550/2550432.png" class="add-to-watchlist" alt="watchlist-icon">
+            {% else %}
+            <img id="watchlist-icon" src="https://cdn-icons-png.flaticon.com/512/2550/2550373.png" class="add-to-watchlist" alt="watchlist-icon">
+            {% endif %}
+        </a>
+            </div>
+        {% endif %}
+    </div>
+
+    <div id="reviews-section">
+        {% include 'base/reviews.html' %}
+    </div>
+
+    <script>
+        $(document).ready(function() {
+           $('#reviews-section').on('submit', '#add-review-form', function(e) {
+        e.preventDefault(); // Prevent default form submission
+        var form = $(this);
+        console.log("Submitting review form");
+        $.ajax({
+            url: form.attr('action'),
+            type: 'POST',
+            data: form.serialize(),
+            success: function(response) {
+                console.log("Review added successfully");
+                $('#reviews-section').html(response); // Update the reviews section
+            },
+            error: function(xhr, errmsg, err) {
+                console.log("Error adding review");
+                console.log(xhr.status + ": " + xhr.responseText);
+                if (xhr.status === 400) {
+                    alert(xhr.responseJSON.error);
+                }
+            }
+        });
+    });
+
+            // Handle delete review button click
+            $('#reviews-section').on('click', '.delete-review-button', function(e) {
+                e.preventDefault(); // Prevent default link navigation
+                var reviewId = $(this).data('id');
+                var deleteUrl = $(this).attr('href');
+                $.ajax({
+                    url: deleteUrl,
+                    type: 'POST',
+                    data: {
+                        'pk': reviewId,  // Use 'pk' instead of 'review_id'
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function(response) {
+                        $('#reviews-section').html(response); // Update the reviews section
+                    },
+                    error: function(xhr, errmsg, err) {
+                        console.log(xhr.status + ": " + xhr.responseText);
+                    }
+                });
+            });
+            $('#add-to-favorites').click(function(e) {
+        e.preventDefault(); // Prevent default anchor behavior
+        var url = $(this).attr('href'); // Get the URL from the anchor's href attribute
+
+
+        $.ajax({
+            url: url,
+            type: 'GET', // Use GET request as we are just toggling favorites, adjust if needed
+            success: function(response) {
+                // Update the UI based on the response
+                $('.add-to-favorites').attr('src', response.iconUrl); // Update the icon based on the response
+                var favoriteIcon = $('#favorite-icon');
+    if (favoriteIcon.attr('src') === 'https://cdn-icons-png.flaticon.com/512/2550/2550357.png') {
+        favoriteIcon.attr('src', 'https://cdn-icons-png.flaticon.com/512/2550/2550223.png');
+    } else {
+        favoriteIcon.attr('src', 'https://cdn-icons-png.flaticon.com/512/2550/2550357.png');
+    }
+            },
+            error: function(xhr, errmsg, err) {
+                console.log(xhr.status + ": " + xhr.responseText);
+            }
+        });
+    });
+
+    $('#add-to-watchlist').click(function(e) {
+        e.preventDefault(); // Prevent default anchor behavior
+        var url = $(this).attr('href'); // Get the URL from the anchor's href attribute
+
+
+        $.ajax({
+            url: url,
+            type: 'GET', // Use GET request as we are just toggling favorites, adjust if needed
+            success: function(response) {
+                // Update the UI based on the response
+                $('.add-to-watchlist').attr('src', response.iconUrl); // Update the icon based on the response
+                var watchlistIcon = $('#watchlist-icon');
+    if (watchlistIcon.attr('src') === 'https://cdn-icons-png.flaticon.com/512/2550/2550373.png') {
+        watchlistIcon.attr('src', 'https://cdn-icons-png.flaticon.com/512/2550/2550432.png');
+    } else {
+        watchlistIcon.attr('src', 'https://cdn-icons-png.flaticon.com/512/2550/2550373.png');
+    }
+            },
+            error: function(xhr, errmsg, err) {
+                console.log(xhr.status + ": " + xhr.responseText);
+            }
+        });
+    });
+
+
+        });
+    </script>
+
+{% endblock %}

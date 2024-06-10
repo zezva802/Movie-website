@@ -1,0 +1,93 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<!--<img src="{{profile.profile_picture.url}}" alt="profile-picture">-->
+<!--{% if request.user == profile.user %}-->
+<!--<a href="{% url 'logout' %}">logout</a>-->
+<!--{% endif %}-->
+<!--<p>{{profile.user.username}}</p>-->
+<!--<h3>Favourites:</h3>-->
+<!--{% for favorite in favorites %}-->
+<!--<p>{{favorite.title}}</p>-->
+<!--{% endfor %}-->
+<!--<h3>Watchlist:</h3>-->
+<!--{% for watch in watchlist %}-->
+<!--<p>{{watch.title}}</p>-->
+<!--{% endfor %}-->
+<!--<h3>Reviews</h3>-->
+<!--{% for review in reviews %}-->
+<!--<p>{{review}}</p>-->
+<!--{% endfor %}-->
+<div class="profile-page-container">
+    <div class="profile-page-sidebar-container">
+        <div class="profile-page-profile-info-wrapper">
+            <div class="profile-page-profile-img-wrapper">
+                <img src="{{profile.profile_picture.url}}" alt="profile pic" class="profile-page-profile-img">
+            </div>
+            <p class="profile-page-username">{{profile.user.username}}</p>
+            {% if request.user == profile.user%}
+            <div class="profile-page-logout">
+                <a href="{% url 'logout' %}">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3558/3558823.png" alt="exit">
+                </a>
+            </div>
+            {% endif %}
+
+        </div>
+        <hr>
+        <div class="profile-page-navigation">
+            <ul class="profile-page-navigation-list">
+                <li><a href="{% url 'profile-page' profile.id %}?q=favorites">ფავორიტები</a></li>
+                <li><a href="{% url 'profile-page' profile.id %}?q=watchlist">საყურებელი სია</a></li>
+                <li><a href="{% url 'profile-page' profile.id %}?q=reviews">განხილვები</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="profile-page-list-container">
+        <div class="profile-page-overlay"></div>
+        <div id="profile-page-wrapper" class="profile-page-wrapper">
+            {% if list == reviews %}
+                {% include 'base/profile_reviews.html' %}
+            {% elif list == favorites %}
+                {% include 'base/profile_favorites.html' %}
+            {% elif list == watchlist %}
+                {% include 'base/profile_watchlist.html' %}
+            {% endif %}
+        </div>
+    </div>
+<!--  ფავორიტების ფაილი და reviewebis-->
+
+</div>
+
+
+<script>
+        $(document).ready(function() {
+
+
+            // Handle delete review button click
+            $('#profile-page-wrapper').on('click', '.profile-page-delete-review-button', function(e) {
+                e.preventDefault(); // Prevent default link navigation
+                var reviewId = $(this).data('id');
+                var deleteUrl = $(this).attr('href');
+                $.ajax({
+                    url: deleteUrl,
+                    type: 'POST',
+                    data: {
+                        'pk': reviewId,  // Use 'pk' instead of 'review_id'
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function(response) {
+                        $('#profile-page-wrapper').html(response); // Update the reviews section
+                    },
+                    error: function(xhr, errmsg, err) {
+                        console.log(xhr.status + ": " + xhr.responseText);
+                    }
+                });
+            });
+
+        });
+    </script>
+
+
+{% endblock %}

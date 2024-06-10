@@ -1,0 +1,12 @@
+<div class="profile-page-content">
+    <div class="profile-page-movie-list">
+        {% for favorite in list %}
+        <div class="profile-page-movie-wrapper">
+            <div class="profile-page-movie-image-wrapper">
+                <img src="{{favorite.image_small}}" alt="{{favorite.title}} poster">
+            </div>
+            <p class="profile-page-movie-title">{{favorite.title}}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
