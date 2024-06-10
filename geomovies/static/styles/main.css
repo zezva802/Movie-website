@@ -489,6 +489,12 @@ iframe {
     width: 308px;
     height: 30px;
 }
+.form-container input[type=email]{
+    height: 30px;
+    width: 300px;
+    margin-top: 5px;
+    background-color: #979797;
+}
 
 
 

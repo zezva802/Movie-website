@@ -8,10 +8,7 @@
                 <div class="input-wrapper">
                     <span>შესვლა</span>
                 </div>
-                <div class="input-wrapper">
-                    <label>ანგარიშის სახელი</label>
-                    <input type="text" name="username" placeholder="Enter Username">
-                </div>
+
                 <div class="input-wrapper">
                     <label>ანგარიშის სახელი</label>
                     <input type="text" class="input-text" name="username" placeholder="Enter Username">
@@ -32,7 +29,8 @@
         </div>
     {% else %}
 
-        <div>
+        <div class="form-container">
+
             <form method="POST" action="" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="input-wrapper">
@@ -44,10 +42,14 @@
                         {{ field }}
                     </div>
                 {% endfor %}
-                <div class="input-wrapper"></div>
+                <div class="input-wrapper">
+                    <input type="submit" value="რეგისტრაცია">
+                </div>
+                <div class="input-wrapper">
                     <p>უკვე გაქვთ ანგარიში?</p>
                     <a href="{% url 'login' %}" style="margin-bottom:10px;">შესვლა</a>
-                <input type="submit" value="რეგისტრაცია">
+                    </div>
+
 
             </form>
         </div>
