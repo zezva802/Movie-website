@@ -1,15 +1,15 @@
 <div class="profile-page-reviews-container">
     {% for review in list %}
-    <div class="profile-page-review">
-        {% if request.user.is_authenticated and review.user == request.user %}
-        <a class="profile-page-delete-review-button" href="{% url 'delete-review-profile' review.id %}" data-id="{{ review.id }}">Delete</a>
-        {% endif %}
-        <div class="profile-page-review-movie">{{review.movie}}</div>
-        <hr>
-        <div class="profile-page-review-info">
-            <p class="profile-page-review-text">{{review.review_text}}</p>
-            <p class="profile-page-review-score">{{review.rating}}/10</p>
+        <div class="profile-page-review">
+            {% if request.user.is_authenticated and review.user == request.user %}
+            <a class="profile-page-delete-review-button" href="{% url 'delete-review-profile' review.id %}" data-id="{{ review.id }}">Delete</a>
+            {% endif %}
+            <div class="profile-page-review-movie">{{review.movie}}</div>
+            <hr>
+            <div class="profile-page-review-info">
+                <p class="profile-page-review-text">{{review.review_text}}</p>
+                <p class="profile-page-review-score">{{review.rating}}/10</p>
+            </div>
         </div>
-    </div>
     {% endfor %}
 </div>

@@ -1,19 +1,32 @@
 {% extends 'main.html' %}
-
+{% load static %}
 {% block content%}
     {% if page == 'login' %}
-        <div>
+        <div class="form-container">
             <form method="POST" action="">
                 {% csrf_token %}
-
-                <label>Username:</label>
-                <input type="text" name="username" placeholder="Enter User">
-                <label>Password:</label>
-                <input type="password" name="password" placeholder="Enter password">
-                <input type="submit" value="Login">
-
-                <p>Don't have account?</p>
-                <a href="{% url 'register' %}">Register</a>
+                <div class="input-wrapper">
+                    <span>შესვლა</span>
+                </div>
+                <div class="input-wrapper">
+                    <label>ანგარიშის სახელი</label>
+                    <input type="text" name="username" placeholder="Enter Username">
+                </div>
+                <div class="input-wrapper">
+                    <label>ანგარიშის სახელი</label>
+                    <input type="text" class="input-text" name="username" placeholder="Enter Username">
+                </div>
+                <div class="input-wrapper">
+                    <label>პაროლი</label>
+                <input class="input-password" type="password" name="password" placeholder="Enter password">
+                </div>
+                <div class="input-wrapper">
+                    <input type="submit" value="შესვლა">
+                </div>
+                <div class="input-wrapper">
+                    <p>არ გაქვთ ანგარიში?</p>
+                    <a href="{% url 'register' %}" style="margin-bottom:12px;">რეგისტრაცია</a>
+                </div>
 
             </form>
         </div>
@@ -22,10 +35,20 @@
         <div>
             <form method="POST" action="" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{form.as_p}}
-                <input type="submit" value="Register">
-                <p>Already registered?</p>
-                <a href="{% url 'login' %}">Login</a>
+                <div class="input-wrapper">
+                    <span>რეგისტრაცია</span>
+                </div>
+                {%for field in form%}
+                    <div class="input-wrapper">
+                        <label for="field">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <div class="input-wrapper"></div>
+                    <p>უკვე გაქვთ ანგარიში?</p>
+                    <a href="{% url 'login' %}" style="margin-bottom:10px;">შესვლა</a>
+                <input type="submit" value="რეგისტრაცია">
+
             </form>
         </div>
 

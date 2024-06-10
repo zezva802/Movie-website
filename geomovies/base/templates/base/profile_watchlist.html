@@ -1,12 +1,15 @@
 <div class="profile-page-content">
     <div class="profile-page-movie-list">
         {% for watch in list %}
-        <div class="profile-page-movie-wrapper">
-            <div class="profile-page-movie-image-wrapper">
-                <img src="{{watch.image_small}}" alt="{{watch.title}} poster">
+            <div class="profile-page-movie-wrapper">
+                <a href="{% url 'movie-page' watch.id %}">
+                    <div class="profile-page-movie-image-wrapper">
+                        <img src="{{watch.image_small}}" alt="{{watch.title}} poster">
+                    </div>
+
+                    <p class="profile-page-movie-title">{{watch.title}}</p>
+                </a>
             </div>
-            <p class="profile-page-movie-title">{{watch.title}}</p>
-        </div>
         {% endfor %}
     </div>
 </div>

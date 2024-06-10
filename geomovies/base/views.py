@@ -11,7 +11,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
 
 
-# davamato suratebi urls gareshe!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # Create your views here.
 def home(request):
     q = request.GET.get('q', '')
@@ -19,15 +18,12 @@ def home(request):
 
     movies = Movie.objects.all()
 
-    # Apply search filter
     if q:
         movies = movies.filter(Q(title__icontains=q))
 
-    # Apply genre filter
     if selected_genres:
         movies = movies.filter(genre__name__in=selected_genres)
 
-    # Fetch all genres for genre filter
     genres = Genre.objects.all()
 
     context = {
@@ -38,47 +34,6 @@ def home(request):
     }
     return render(request, 'base/home.html', context)
 
-
-# def movie_page(request, pk):
-#     movie = Movie.objects.get(id=pk)
-#     reviews = movie.review_set.all().order_by('-created_at')
-#     user_review = None
-#     form = None
-#     if request.user.is_authenticated:
-#         if request.method == 'POST':
-#             try:
-#                 review = Review.objects.get(user=request.user, movie=movie)
-#                 form = ReviewForm(request.POST, instance=review)
-#             except Review.DoesNotExist:
-#                 form = ReviewForm(request.POST)
-#             if form.is_valid():
-#                 review = form.save(commit=False)
-#                 review.user = request.user
-#                 review.movie = movie
-#                 review.save()
-#                 return redirect('movie-page', pk=pk)
-#         else:
-#             try:
-#                 user_review = Review.objects.get(user=request.user, movie=movie)
-#                 form = ReviewForm(instance=user_review)
-#             except Review.DoesNotExist:
-#                 form = ReviewForm()
-#
-#     print(request.user)
-#     if request.user.is_authenticated:
-#         if movie in request.user.profile.favorite_movies.all():
-#             movie.is_favorite = True
-#         else:
-#             movie.is_favorite = False
-#
-#     context = {
-#
-#         'movie': movie,
-#         'reviews': reviews,
-#         'form': form,
-#         'user_review': user_review,
-#     }
-#     return render(request, 'base/movie_page.html', context)
 
 def movie_page(request, pk):
     movie = Movie.objects.get(id=pk)
@@ -125,7 +80,7 @@ def add_review(request, movie_id):
 
             if not created:
                 review.review_text = text
-                review.rating = rating  # Update the rating if the review already exists
+                review.rating = rating
                 review.save()
             else:
                 form = ReviewForm(request.POST, instance=review)
@@ -177,7 +132,6 @@ def login_page(request):
     return render(request, 'base/login_register.html', context)
 
 
-# users/views.py
 def register_page(request):
     form = UserRegisterForm()
     if request.method == "POST":
@@ -188,9 +142,8 @@ def register_page(request):
             user.save()
             profile_picture = form.cleaned_data.get('profile_picture')
 
-            # Access the newly created profile for the user
             profile = Profile.objects.create(user=user)
-            # Update the profile picture if it was provided
+
             if profile_picture:
                 profile.profile_picture = profile_picture
                 profile.save()
@@ -208,7 +161,7 @@ def logout_user(request):
 
 
 def profile_page(request, pk):
-    q = request.GET.get('q') if request.GET.get('q')!=None else ''
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
     list = []
 
     profile = Profile.objects.get(id=pk)
@@ -219,14 +172,13 @@ def profile_page(request, pk):
     if q == "favorites":
 
         list = favorites
-    elif q=="watchlist":
-        list= watchlist
-    elif q=="reviews":
+    elif q == "watchlist":
+        list = watchlist
+    elif q == "reviews":
         list = reviews
         print(list)
 
-
-    context = {"favorites": favorites, "reviews": reviews, "profile": profile, "watchlist": watchlist, "list":list}
+    context = {"favorites": favorites, "reviews": reviews, "profile": profile, "watchlist": watchlist, "list": list}
     return render(request, 'base/profile.html', context)
 
 
@@ -265,8 +217,3 @@ def delete_review_profile(request, review_id):
         return render(request, 'base/profile_reviews.html', {'reviews': reviews, 'profile': profile})
 
     return JsonResponse({"error": "Invalid request"}, status=400)
-
-
-
-
-

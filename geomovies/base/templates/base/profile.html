@@ -27,11 +27,11 @@
             </div>
             <p class="profile-page-username">{{profile.user.username}}</p>
             {% if request.user == profile.user%}
-            <div class="profile-page-logout">
-                <a href="{% url 'logout' %}">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3558/3558823.png" alt="exit">
-                </a>
-            </div>
+                <div class="profile-page-logout">
+                    <a href="{% url 'logout' %}">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3558/3558823.png" alt="exit">
+                    </a>
+                </div>
             {% endif %}
 
         </div>

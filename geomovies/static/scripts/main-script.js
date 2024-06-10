@@ -3,7 +3,7 @@ document.querySelectorAll('.genre-filter-form input[type="checkbox"]').forEach(c
         const checkboxId = this.id;
         const label = document.querySelector(`label[for="${checkboxId}"]`);
 
-        // Update label color based on the new checked state
+
         updateLabelColor(label, this.checked);
     });
 });

@@ -19,24 +19,24 @@
             </div>
         </div>
         {% if request.user.is_authenticated %}
-        <div class="add-to-favorites-wrapper">
-            <a id="add-to-favorites"  href="{% url 'toggle-favorite' movie.id %}">
-                {% if movie.is_favorite %}
-                    <img id="favorite-icon" class="add-to-favorites" src="https://cdn-icons-png.flaticon.com/512/2550/2550357.png" alt="favorites-icon">
-                {% else %}
-                    <img id="favorite-icon" class="add-to-favorites" src="https://cdn-icons-png.flaticon.com/512/2550/2550223.png" alt="favorites-icon">
-                {% endif %}
-            </a>
+            <div class="add-to-favorites-wrapper">
+                <a id="add-to-favorites"  href="{% url 'toggle-favorite' movie.id %}">
+                    {% if movie.is_favorite %}
+                        <img id="favorite-icon" class="add-to-favorites" src="https://cdn-icons-png.flaticon.com/512/2550/2550357.png" alt="favorites-icon">
+                    {% else %}
+                        <img id="favorite-icon" class="add-to-favorites" src="https://cdn-icons-png.flaticon.com/512/2550/2550223.png" alt="favorites-icon">
+                    {% endif %}
+                </a>
 
-        </div>
-        <div class="add-to-watchlist-wrapper">
-        <a id="add-to-watchlist" href="{% url 'toggle-watchlist' movie.id %}">
-            {% if movie.in_watchlist %}
-            <img id=watchlist-icon" src="https://cdn-icons-png.flaticon.com/512/2550/2550432.png" class="add-to-watchlist" alt="watchlist-icon">
-            {% else %}
-            <img id="watchlist-icon" src="https://cdn-icons-png.flaticon.com/512/2550/2550373.png" class="add-to-watchlist" alt="watchlist-icon">
-            {% endif %}
-        </a>
+            </div>
+            <div class="add-to-watchlist-wrapper">
+                <a id="add-to-watchlist" href="{% url 'toggle-watchlist' movie.id %}">
+                    {% if movie.in_watchlist %}
+                        <img id=watchlist-icon" src="https://cdn-icons-png.flaticon.com/512/2550/2550432.png" class="add-to-watchlist" alt="watchlist-icon">
+                    {% else %}
+                        <img id="watchlist-icon" src="https://cdn-icons-png.flaticon.com/512/2550/2550373.png" class="add-to-watchlist" alt="watchlist-icon">
+                    {% endif %}
+                </a>
             </div>
         {% endif %}
     </div>
