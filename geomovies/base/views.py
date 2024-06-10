@@ -99,7 +99,7 @@ def delete_review(request, review_id):
     review = get_object_or_404(Review, id=review_id)
 
     if request.user != review.user:
-        return JsonResponse({"error": "You don't have permission to delete this review"}, status=403)
+        return JsonResponse({"error": "არ გაქვს უფლება წაშალო"}, status=403)
 
     if request.method == 'POST':
         movie = review.movie
@@ -119,14 +119,14 @@ def login_page(request):
         try:
             user = User.objects.get(username=username)
         except:
-            messages.error(request, "User doesn't exist!")
+            messages.error(request, "ანგარიშის სახელი არ მოიძებნა")
 
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
             return redirect('home')
         else:
-            messages.error(request, "Wrong password!")
+            messages.error(request, "არასწორი პაროლი")
 
     context = {'page': page}
     return render(request, 'base/login_register.html', context)
@@ -149,7 +149,7 @@ def register_page(request):
                 profile.save()
 
             login(request, user)
-            messages.success(request, f'Your account has been created! You are now logged in.')
+            messages.success(request, f'ანგარიში შექმნილია')
             return redirect('home')
     context = {'form': form}
     return render(request, 'base/login_register.html', context)
@@ -208,7 +208,7 @@ def delete_review_profile(request, review_id):
     review = get_object_or_404(Review, id=review_id)
 
     if request.user != review.user:
-        return JsonResponse({"error": "You don't have permission to delete this review"}, status=403)
+        return JsonResponse({"error": "არ გაქვს უფლება წაშალო"}, status=403)
 
     if request.method == 'POST':
         profile = review.user
