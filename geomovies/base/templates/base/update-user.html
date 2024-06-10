@@ -1,0 +1,29 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="form-container">
+    <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="input-wrapper">
+            <span>რედაქტირება</span>
+        </div>
+        {% for field in u_form %}
+        <div class="input-wrapper">
+            <label>{{field.label}}</label>
+            {{field}}
+        </div>
+        {% endfor %}
+        {% for field in p_form %}
+        <div class="input-wrapper">
+            <label>{{field.label}}</label>
+            {{field}}
+        </div>
+        {% endfor %}
+
+        <input type="submit" value="რედაქტირება">
+    </form>
+
+</div>
+
+{% endblock %}

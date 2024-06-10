@@ -14,6 +14,7 @@ urlpatterns = [
     path('profile/<str:pk>', views.profile_page,name='profile-page'),
     path('toggle-favorite/<str:pk>', views.toggle_favorite,name='toggle-favorite'),
     path('toggle-watchlist/<str:pk>', views.toggle_watchlist,name='toggle-watchlist'),
-    path('delete-review-profile/<str:review_id>/', views.delete_review_profile, name='delete-review-profile')
+    path('delete-review-profile/<str:review_id>/', views.delete_review_profile, name='delete-review-profile'),
+    path('update-user', views.update_user, name="update-user")
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

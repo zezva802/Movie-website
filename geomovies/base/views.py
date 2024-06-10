@@ -2,7 +2,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Movie, Review, Profile, Genre
-from .forms import ReviewForm, UserRegisterForm
+from .forms import ReviewForm, UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -203,7 +203,7 @@ def toggle_watchlist(request, pk):
     return redirect('movie-page', pk=pk)
 
 
-@login_required
+@login_required()
 def delete_review_profile(request, review_id):
     review = get_object_or_404(Review, id=review_id)
 
@@ -217,3 +217,27 @@ def delete_review_profile(request, review_id):
         return render(request, 'base/profile_reviews.html', {'reviews': reviews, 'profile': profile})
 
     return JsonResponse({"error": "Invalid request"}, status=400)
+
+
+@login_required()
+def update_user(request):
+    if request.method == "POST":
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if u_form.is_valid() and p_form.is_valid():
+            profile_picture = p_form.cleaned_data.get('profile_picture')
+            print(profile_picture)
+            if profile_picture:
+                request.user.profile.profile_picture = profile_picture
+            u_form.save()
+            p_form.save()
+
+            return redirect("profile-page", pk=request.user.profile.id)
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+    context = {'u_form': u_form,
+               'p_form': p_form}
+
+    return render(request, "base/update-user.html", context)
